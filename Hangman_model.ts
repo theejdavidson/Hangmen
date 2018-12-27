@@ -23,6 +23,10 @@ console.log(displayAsBlanks(pick,blankArray))
 
 function compareInput(pick:string, inputChar:string, blankArray:string[], incorrectGuess:number):string[] {
 
+    if(incorrectGuess = 6)
+    {
+        console.log("Your enemy was hanged")
+    }
     var indices:Array<number> = [];
     var index:number = pick.indexOf(inputChar);
     while (index >=0) {
@@ -48,4 +52,6 @@ function compareInput(pick:string, inputChar:string, blankArray:string[], incorr
         
     }return blankArray
 }
+console.log(compareInput(pick, inputChar, blankArray, incorrectGuess))
+inputChar = "b"
 console.log(compareInput(pick, inputChar, blankArray, incorrectGuess))

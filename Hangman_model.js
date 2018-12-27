@@ -16,6 +16,9 @@ function displayAsBlanks(pick, blankArray) {
 }
 console.log(displayAsBlanks(pick, blankArray));
 function compareInput(pick, inputChar, blankArray, incorrectGuess) {
+    if (incorrectGuess = 6) {
+        console.log("Your enemy was hanged");
+    }
     var indices = [];
     var index = pick.indexOf(inputChar);
     while (index >= 0) {
@@ -37,4 +40,6 @@ function compareInput(pick, inputChar, blankArray, incorrectGuess) {
     }
     return blankArray;
 }
+console.log(compareInput(pick, inputChar, blankArray, incorrectGuess));
+inputChar = "b";
 console.log(compareInput(pick, inputChar, blankArray, incorrectGuess));
