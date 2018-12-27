@@ -22,7 +22,12 @@ function compareInput(pick, inputChar, blankArray, incorrectGuess) {
         indices.push(index);
         index = pick.indexOf(inputChar, index + 1);
     }
+    var i;
+    for (i = 0; i < indices.length; i++) {
+        blankArray[indices[i]] = inputChar;
+    }
     console.log(indices);
+    console.log(blankArray);
     if (indices.length == 0) {
         console.log("incorrect guess!");
         incorrectGuess++;

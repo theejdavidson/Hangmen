@@ -30,7 +30,14 @@ function compareInput(pick:string, inputChar:string, blankArray:string[], incorr
         index = pick.indexOf(inputChar, index + 1);
     }
 
+    var i:number;
+    for(i=0;i<indices.length;i++)//replaces blanks in blank array with correct guess
+    {
+        blankArray[indices[i]] = inputChar;
+    }
+
     console.log(indices)
+    console.log(blankArray)
 
     if(indices.length == 0)
     {
