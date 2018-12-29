@@ -1,0 +1,14 @@
+{
+  "name": "hangpeople",
+  "version": "1.0.0",
+  "description": "Multi player hangman",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ethan Davidson",
+  "license": "MIT",
+  "dependencies": {
+    "ts-node": "^7.0.1"
+  }
+}

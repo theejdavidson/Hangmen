@@ -1,57 +1,123 @@
-var message:string ="Hello Player"
-console.log(message)
+class HangmanModel {
 
-var wordList:string[] = new Array("awkward", "bagpipes", "banjo", "croquet", "crypt", "dwarves", "fervid")
+    private limbs: number = 0;
 
-var inputChar:string = "a"
-inputChar= inputChar.toLowerCase()
+    private chosen_phrase: string;
 
-var pick = wordList[Math.floor(Math.random()*wordList.length)];
-console.log(pick)
+    constructor(private pick: string, private allowed_limbs: number = 6) {
+        this.chosen_phrase = '_ '.repeat(pick.length);
+    }
 
-var incorrectGuess:number = 0;
+    public toString = (): string => {
+        return `HangmanModel
+            pick: ${this.pick}
+            chosen_phrase: ${this.chosen_phrase}
+            limbs: ${this.limbs}
+        `;
+    }
 
-var blankArray:string[] = new Array()
+    public haveWon(): boolean {
+        console.log(`Have won ${this.limbs} vs ${this.allowed_limbs} => ${this.limbs == this.allowed_limbs}`);
+        return this.limbs == this.allowed_limbs;
+    }
 
-function displayAsBlanks(pick:string,blankArray:string[]):string[] {
-    var i:number;
-    for(i=0; i<pick.length;i++){
-        blankArray.push("_")
-    }return blankArray
+    public haveLost(): boolean {
+        return this.chosen_phrase == this.pick;
+    }
+
+    public evaluateGuess(guess: string) {
+        // TODO: 
+        console.log(`Evaluating '${guess}' ${this.limbs} limbs`);
+        this.limbs += 1;
+    }
 }
-console.log(displayAsBlanks(pick,blankArray))
 
-function compareInput(pick:string, inputChar:string, blankArray:string[], incorrectGuess:number):string[] {
+class Player {
 
-    if(incorrectGuess = 6)
-    {
-        console.log("Your enemy was hanged")
-    }
-    var indices:Array<number> = [];
-    var index:number = pick.indexOf(inputChar);
-    while (index >=0) {
-        indices.push(index);
-        index = pick.indexOf(inputChar, index + 1);
+    private model: HangmanModel;
+
+    private static letters = "abcdefghijklmnopqrstuvwxyz";
+
+    private moves: Array<[Player, string]> = [];
+
+    constructor(private name: string, private pick: string) {
+        this.model = new HangmanModel(pick);
     }
 
-    var i:number;
-    for(i=0;i<indices.length;i++)//replaces blanks in blank array with correct guess
-    {
-        blankArray[indices[i]] = inputChar;
+    public takeTurn(otherPlayers: Array<Player>): Player {
+        var chosenTarget = otherPlayers[Math.floor(Math.random() * otherPlayers.length)];
+        /// TODO: Get user input guess
+        var guess = Player.letters[Math.floor(Math.random() * Player.letters.length)];
+
+        chosenTarget.acceptGuess(guess);
+        this.moves.push([chosenTarget, guess]);
+
+        console.log(this.toString());
+        return chosenTarget;
     }
 
-    console.log(indices)
-    console.log(blankArray)
+    public acceptGuess(guess: string) {
+        this.model.evaluateGuess(guess);
+    }
 
-    if(indices.length == 0)
-    {
-        console.log("incorrect guess!")
-        incorrectGuess++;
-    } else {
-        console.log(`correct guess with ${indices.length} hits!`)
-        
-    }return blankArray
+    public haveLost(): boolean {
+        return this.model.haveLost();
+    }
+
+    public haveWon(): boolean {
+        return this.model.haveWon();
+    }
+
+    public toString(): string {
+        return `Player(${this.name}): ` + this.moves.map((move) => `(${move[0].name}, '${move[1]}')`).join(', ');
+    }
 }
-console.log(compareInput(pick, inputChar, blankArray, incorrectGuess))
-inputChar = "b"
-console.log(compareInput(pick, inputChar, blankArray, incorrectGuess))
+
+class Hangmen {
+
+    private losers: Array<Player> = [];
+
+    constructor(private players: Array<Player>) {
+
+    }
+
+    public toString = (): string => {
+        return "---Players---\n" +
+            this.players.map((player) => player.toString()).join("\n");
+    }
+
+
+    public async runGame() {
+        gameloop:
+        while (this.players.length > 1) {
+            for (var player of this.players) {
+                var otherPlayers = this.players.filter((otherPlayer) => otherPlayer != player);
+                var chosenTarget = player.takeTurn(otherPlayers);
+                if (player.haveLost()) {
+                    this.losers.push(player);
+                    this.players = otherPlayers;
+                }
+
+                if (chosenTarget.haveWon()) {
+                    console.log(`WE have a winner ${chosenTarget}`);
+                    break gameloop;
+                }
+                await sleep(200);
+            }
+        }
+    }
+}
+
+var hm1 = new Player("p1", "dingleberry-doo");
+var hm2 = new Player("p2", "dingleberry-boo");
+var hm3 = new Player("p3", "dingleberry-foo");
+
+var hm = new Hangmen([hm1, hm2, hm3]);
+
+hm.runGame();
+
+console.log(hm.toString());
+
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
