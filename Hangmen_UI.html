@@ -1,0 +1,30 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset= "UTF-8">
+<title>Hangmen: A Multiplayer Knockout Hangman Game</title>
+<link href="Hangmen_CSS.css" rel="stylesheet" type="text/css"></link>
+<link href='https://fonts.googleapis.com/css?family=Staatliches' rel='stylesheet'>
+</head>
+<body>
+<h1>Hangmen: A Multiplayer Hangman Knockout Game</h1>
+<p>Rules: After selecting the number of players, each player chooses a word or phrase for the other player(s) to guess. If the number of players selected is one, the player will be faced against the computer.  The goal of each player is to select a word or phrase that is unlikely to be guessed by other players.  Upon selecting the word or phrase, each player will see their name above a gallows icon, blanks corresponding to their chosen word or phrase, and an alphabet box.  Each player will take their turn selecting an opponent's Hangman, and input a letter that they believe is contained within the opponent's chosen word or phrase.  If they guess correctly, all instances of that letter in the opponent's Hangman will be filled.  Once a player's entire word or phrase has been guessed, they are knocked out of the game.  If a player guesses incorrectly, their opponent recieves a limb on their Hangman.  Once any player recieves all six limbs, the game is over and that player is the winner.  Otherwise, the winner is the last player left in the game with blanks left in their word or phrase.</p>
+<form action='#'>
+    <p>Select number of players:</p>
+    <select id="playersTotal" name="playersTotal">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+<script href="Hangman_model.js" stype="text/javascript">
+</script>
+</form>
+</body>
+</html>

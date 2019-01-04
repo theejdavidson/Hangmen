@@ -1,0 +1,12 @@
+body {
+    background-color:rgb(89, 177, 206);
+    font-family: 'Staatliches';
+    color:white;
+    text-align: center;
+}
+h1 {
+    font-size:40pt;
+}
+p {
+    font-size: 20pt;
+}

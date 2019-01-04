@@ -76,6 +76,8 @@ class Player {
 class Hangmen {
 
     private losers: Array<Player> = [];
+    //private var playersVal:string = document.getElementById("playersTotal").value;
+   // private var playersTotal:number = parseInt(this.playersVal, 10);
 
     constructor(private players: Array<Player>) {
 
