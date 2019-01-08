@@ -2,18 +2,19 @@ class HangmanModel {
 
     private limbs: number = 0;
 
-    private chosen_phrase: string;
+    private blanked_phrase: string;
+    private guess: any = document.getElementById("guess");
+    private blankArray:string[] = new Array();
 
     constructor(private pick: string, private allowed_limbs: number = 6) {
-        this.chosen_phrase = '_ '.repeat(pick.length);
+        this.blanked_phrase = '_ '.repeat(pick.length);
     }
 
     public toString = (): string => {
         return `HangmanModel
             pick: ${this.pick}
-            chosen_phrase: ${this.chosen_phrase}
-            limbs: ${this.limbs}
-        `;
+            blanked_phrase: ${this.blanked_phrase}
+            limbs: ${this.limbs}`;
     }
 
     public haveWon(): boolean {
@@ -22,11 +23,29 @@ class HangmanModel {
     }
 
     public haveLost(): boolean {
-        return this.chosen_phrase == this.pick;
+        return this.blanked_phrase == this.pick;
     }
 
-    public evaluateGuess(guess: string) {
+    public displayAsBlanks(blanked_phrase:string,blankArray:string[]):string[] {
+        var i:number;
+        for(i=0; i<blanked_phrase.length;i++){
+            blankArray.push("_")
+    }return blankArray
+
+    public evaluateGuess() {
         // TODO: 
+        var indices:Array<number> = [];
+        var index:number = this.blanked_phrase.indexOf(this.guess);
+        while (index >=0) {
+            indices.push(index);
+            index = pick.indexOf(inputChar, index + 1);
+        }
+    
+        var i:number;
+        for(i=0;i<indices.length;i++)//replaces blanks in blank array with correct guess
+        {
+            this.blankArray[indices[i]] = inputChar;
+        }
         console.log(`Evaluating '${guess}' ${this.limbs} limbs`);
         this.limbs += 1;
     }

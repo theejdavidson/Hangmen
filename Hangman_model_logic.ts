@@ -1,17 +1,4 @@
-
-class HangmanModel {
-    private mistakes:number = 0;
-    constructor(private pick:string, private allowed_mistakes:number = 6) {
-
-    }
-
-    public toString = () : string => {
-        return `HangmanModel (pick: ${this.pick})`;
-    }
-
-    
-}
-
+/*
 var message:string ="How many players?"
 console.log(message)
 
@@ -29,13 +16,7 @@ var pick = wordList[Math.floor(Math.random()*wordList.length)];
 
 var incorrectGuess:number = 0;
 
-var blankArray:string[] = new Array()
 
-function displayAsBlanks(pick:string,blankArray:string[]):string[] {
-    var i:number;
-    for(i=0; i<pick.length;i++){
-        blankArray.push("_")
-    }return blankArray
 }
 //console.log(displayAsBlanks(pick,blankArray))
 
@@ -96,3 +77,4 @@ function gameMaster(playerNum:number[], playersTotal:number):void {
 var hm = new HangmanModel("dingleberry");
 
 console.log(hm.toString());
+*/
